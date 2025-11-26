@@ -59,7 +59,7 @@ Installation
 
 Clone the repository:
 
-git clone https://github.com/your-username/ReactNativeAudioRecorder.git
+git clone https://github.com/KGOPOTSOMANGENA/ReactNativeAudioRecorder.git
 cd ReactNativeAudioRecorder
 
 
