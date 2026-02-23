@@ -1,15 +1,13 @@
-// src/theme.ts
-
 export const colors = {
-  primary: '#ff4d4d',     // red for buttons & highlights
-  secondary: '#4A90E2',   // blue accent
-  background: '#f2f2f2',  // screen background
-  surface: '#fff',         // cards, note items
-  textPrimary: '#333',     // main text
-  textSecondary: '#666',   // secondary text
-  success: '#28a745',      // success messages
-  warning: '#ffc107',      // warnings
-  error: '#ff4d4d',        // error color
+  primary: '#16a34a',       // modern green
+  secondary: '#22c55e',
+  background: '#f0fdf4',    // very light green
+  surface: '#ffffff',
+  textPrimary: '#064e3b',
+  textSecondary: '#065f46',
+  success: '#16a34a',
+  warning: '#facc15',
+  error: '#dc2626',
 };
 
 export const spacing = {
