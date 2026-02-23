@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { VoiceNote } from '../types';
+import { VoiceNote } from '../types/types';
 
 
 const KEY = 'VOICE_NOTES_v1';

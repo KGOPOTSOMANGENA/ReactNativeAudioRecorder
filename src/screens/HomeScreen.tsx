@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput } from 'react-native';
-import { VoiceNote } from '../types';
+import { VoiceNote } from '../types/types';
 import { loadNotes, saveNotes } from '../utils/storage';
 import NoteList from '../components/NoteList';
 import Recorder from '../components/Recorder';
@@ -15,7 +15,11 @@ export default function HomeScreen() {
   }, []);
 
   function handleCreate(note: VoiceNote) {
-    setNotes((prev) => [note, ...prev]);
+    setNotes((prev) => {
+      const updated = [note, ...prev];
+      saveNotes(updated);
+      return updated;
+    });
   }
 
   function handleDelete(id: string) {
@@ -24,15 +28,34 @@ export default function HomeScreen() {
     saveNotes(filtered);
   }
 
-  const filteredNotes = notes.filter((note) =>
-    new Date(note.createdAt)
-      .toLocaleString()
-      .toLowerCase()
-      .includes(query.toLowerCase())
-  );
+  function handleEdit(id: string, title: string) {
+    const updated = notes.map((n) =>
+      n.id === id ? { ...n, title } : n
+    );
+    setNotes(updated);
+    saveNotes(updated);
+  }
+
+  const filteredNotes = notes.filter((note) => {
+    const q = query.toLowerCase();
+
+    return (
+      note.title?.toLowerCase().includes(q) ||
+      new Date(note.createdAt)
+        .toLocaleString()
+        .toLowerCase()
+        .includes(q)
+    );
+  });
 
   return (
-    <View style={{ flex: 1, padding: spacing.md, backgroundColor: colors.background }}>
+    <View
+      style={{
+        flex: 1,
+        padding: spacing.md,
+        backgroundColor: colors.background,
+      }}
+    >
       <Text
         style={{
           fontSize: fontSize.xlarge,
@@ -45,7 +68,7 @@ export default function HomeScreen() {
       </Text>
 
       <TextInput
-        placeholder="Search notes..."
+        placeholder="Search by title or date..."
         value={query}
         onChangeText={setQuery}
         style={{
@@ -60,9 +83,12 @@ export default function HomeScreen() {
       <Recorder onCreate={handleCreate} />
 
       <View style={{ marginTop: spacing.lg }}>
-        <NoteList notes={filteredNotes} onDelete={handleDelete} />
+        <NoteList
+          notes={filteredNotes}
+          onDelete={handleDelete}
+          onEdit={handleEdit}
+        />
       </View>
     </View>
   );
 }
-
