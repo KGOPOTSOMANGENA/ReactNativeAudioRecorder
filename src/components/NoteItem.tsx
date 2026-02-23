@@ -20,7 +20,7 @@ export default function NoteItem({ note, onDelete, onEdit }: Props) {
         padding: spacing.md,
         borderRadius: borderRadius.lg,
         elevation: 4,
-        shadowColor: '#000',
+        shadowColor: '#000000b2',
         shadowOpacity: 0.1,
         shadowRadius: 10,
       }}
