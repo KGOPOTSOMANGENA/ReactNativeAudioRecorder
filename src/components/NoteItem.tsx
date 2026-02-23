@@ -1,37 +1,72 @@
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, TextInput, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Player from './Player';
-import { VoiceNote } from '../types';
+import { VoiceNote } from '../types/types';
+import { colors, spacing, borderRadius } from '../styles/theme';
 
 type Props = {
   note: VoiceNote;
   onDelete: (id: string) => void;
+  onEdit: (id: string, title: string) => void;
 };
 
-export default function NoteItem({ note, onDelete }: Props) {
+export default function NoteItem({ note, onDelete, onEdit }: Props) {
   return (
     <View
       style={{
-        backgroundColor: '#fff',
-        marginVertical: 6,
-        padding: 14,
-        borderRadius: 12,
+        backgroundColor: colors.surface,
+        marginVertical: spacing.sm,
+        padding: spacing.md,
+        borderRadius: borderRadius.lg,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        elevation: 2,
+        elevation: 4,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 8,
       }}
     >
-      <View>
-        <Text style={{ fontWeight: 'bold' }}>
-          {new Date(note.createdAt).toLocaleString()}
-        </Text>
+      <View style={{ flex: 1, marginRight: spacing.md }}>
+        {/* Editable Title */}
+        <TextInput
+          value={note.title}
+          placeholder="Untitled note"
+          onChangeText={(text) => onEdit(note.id, text)}
+          style={{
+            fontWeight: 'bold',
+            fontSize: 16,
+            color: colors.textPrimary,
+            marginBottom: 6,
+          }}
+        />
+
+        {/* Timestamp */}
+        <TextInput
+          editable={false}
+          value={new Date(note.createdAt).toLocaleString()}
+          style={{
+            fontSize: 12,
+            color: colors.textSecondary,
+            marginBottom: 8,
+          }}
+        />
+
+        {/* Audio Player */}
         <Player uri={note.uri} />
       </View>
 
-      <TouchableOpacity onPress={() => onDelete(note.id)}>
-        <Ionicons name="trash" size={24} color="#ff4d4d" />
+      {/* Delete Button */}
+      <TouchableOpacity
+        onPress={() => onDelete(note.id)}
+        style={{
+          backgroundColor: '#dcfce7',
+          padding: 10,
+          borderRadius: 50,
+        }}
+      >
+        <Ionicons name="trash" size={20} color={colors.error} />
       </TouchableOpacity>
     </View>
   );

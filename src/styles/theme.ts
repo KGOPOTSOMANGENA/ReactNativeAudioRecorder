@@ -1,13 +1,7 @@
+// src/theme.ts
+
 export const colors = {
-  primary: '#16a34a',       // modern green
-  secondary: '#22c55e',
-  background: '#f0fdf4',    // very light green
-  surface: '#ffffff',
-  textPrimary: '#064e3b',
-  textSecondary: '#065f46',
-  success: '#16a34a',
-  warning: '#facc15',
-  error: '#dc2626',
+     // error color
 };
 
 export const spacing = {

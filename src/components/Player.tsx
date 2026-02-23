@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
+import { colors } from '../styles/theme';
 
 type Props = {
   uri: string;
@@ -35,8 +36,20 @@ export default function Player({ uri }: Props) {
 
   return (
     <View>
-      <TouchableOpacity onPress={playing ? stop : play}>
-        <Ionicons name={playing ? 'pause' : 'play'} size={28} color="#333" />
+      <TouchableOpacity
+        onPress={playing ? stop : play}
+        style={{
+          backgroundColor: '#dcfce7',
+          padding: 12,
+          borderRadius: 50,
+          alignItems: 'center',
+        }}
+      >
+        <Ionicons
+          name={playing ? 'pause' : 'play'}
+          size={32}
+          color={colors.primary}
+        />
       </TouchableOpacity>
     </View>
   );
